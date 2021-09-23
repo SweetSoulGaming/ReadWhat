@@ -1,93 +1,98 @@
 const fs = require("fs");
-const path = require("path");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
-const { rejects } = require("assert");
-const { resolve } = require("path");
 
 // array of questions for user
 const questions = [
    {
     type: "input",
+    messages: "What is your Github username?",
     name:"github",
-    messages: "What is your Github username?", 
+     
 
    },
    {
     type: "input",
-    name:"email",
     messages: "What is your email address?", 
+    name:"email",
+     
 
    },
    {
     type: "input",
-    name:"title",
     messages: "What is your project's name?", 
+    name:"title",
+    
 
    },
    {
     type: "input",
-    name:"description",
     messages: "Please write a short description of your project", 
+    name:"description",
+     
 
    },
    {
     type: "input",
-    name:"license",
     messages: "What kind of license should your project have?",
-    choices: ["MIT","APACHE 2.0","GPL 3.0","BSD 3", "None"] 
-
+    choices: ["MIT","APACHE 2.0","GPL 3.0","BSD 3", "None"] ,
+    name:"license",
+    
    },
    {
     type: "input",
+    messages: "What command should be run to onstall dependencies?",  
     name:"installation",
-    messages: "What command should be run to onstall dependencies?", 
+    
 
    },
    {
     type: "input",
+    messages: "What command should be run to run tests?",
     name:"test",
-    messages: "What command should be run to run tests?", 
+     
 
    },
    {
     type: "input",
-    name:"usage",
     messages: "What does the user need to know abotu the repo?", 
-
+    name:"usage",
+    
    },
    {
     type: "input",
-    name:"contributing",
     messages: "What does the user need to know about contributing to the repo?", 
+    name:"contributing",
+    
 
    }
 ];
 
 
-// function to write README file
+
+
 
 
 //tdb fs.writeFileSync(.... filename, data);
-function writeToFile(fileName, data, path) {
-    return new Promise((fileName,data,path) => {
-        fs.writeFileSync(path(fileName),data, path);
+function writeToFile(fileName, data,) {
+    
+        fs.writeFileSync("./markdown.pl"+fileName, data, function(err) {
+            if(err) {
+                return console.log(err);
+            }
+         console.log("Successfully wrote: " + fileName);
+        })
         
-        
-       if (path) {
-           rejects(path);
-           return;
-       }
-    });
-}
-
+    }
+     
+    
 // function to initialize program
 function init() {
 
     inquirer.prompt(questions)
-    .then((inquirerResponses) => {
+    .then(function(data) {
         console.log("Generating Readme...");
-        writeToFile("README.md", generateMarkdown({...inquirerResponses}));
+        writeToFile("markdown.pl", generateMarkdown(data));
     })
 
 }
