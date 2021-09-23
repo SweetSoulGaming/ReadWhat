@@ -1,5 +1,5 @@
 function renderLicenseBadge(license){
-    if (license !== "MIT") {
+    if (license !== "none") {
     return (`
     ## License 
     
@@ -11,40 +11,43 @@ function renderLicenseBadge(license){
   
   // function to generate markdown for README
   function generateMarkdown(data) {
-    return `# ${data.title}
-   ${renderLicenseBadge(data.lincense)}
+    return`
+  # ${data.Title}
+  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/${data.UserName}/${data.Title})
+  # Description
+  ${data.Description}
+  # Table of Contents 
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [License](#license)
+  * [Contributing](#contributing)
+  * [Tests](#tests)
+  * [Questions](#questions)
+  # Installation
+  The following necessary dependencies must be installed to run the application properly: ${data.Installation}
+  # Usage
+  ​This application is used for ${data.Usage}
+  # License
+  This project is license under the ${data.License} license.
+  # Contributing
+  ​Contributors: ${data.Contributor}
+  # Tests
+  To run tests, you need to run the following command: ${data.Test}
+  # Questions
+  If you have any questions about the repo, open an issue or contact ${data.UserName} directly ${data.Email}.
+  
+  
+  
+  
+     
+     ${renderLicenseBadge(data.lincense)}
   `;
   }
-  const generateHTML = (answers) =>
-`<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <title>Document</title>
-</head>
-<body>
-  <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Hi! My name is ${answers.name}</h1>
-    <p class="lead">I am from ${answers.location}.</p>
-    <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
-    <ul class="list-group">
-      <li class="list-group-item">My GitHub username is ${answers.github}</li>
-      <li class="list-group-item">LinkedIn: ${answers.linkedin}</li>
-    </ul>
-  </div>
-</div>
-</body>
-</html>`;
 
 
 
-promptUser()
-  .then((answers) => writeFileAsync('index.js', generateHTML(answers)))
-  .then(() => console.log('Successfully wrote to index.html'))
-  .catch((err) => console.error(err));
+ 
+
 
    
   module.exports = generateMarkdown;
