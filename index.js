@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 
@@ -74,28 +75,24 @@ const questions = [
 
 
 //tdb fs.writeFileSync(.... filename, data);
-function writeToFile(fileName, data,) {
-    
-        fs.writeFileSync("./markdown.pl"+fileName, data, function(err) {
-            if(err) {
-                return console.log(err);
-            }
-         console.log("Successfully wrote: " + fileName);
-        })
-        
-    }
+// function to write README file
+function writeToFile(fileName, data) {
+    fs.writeFileSync(`${fileName}.md`, data);
+
+}
      
     
 // function to initialize program
 function init() {
-
-    inquirer.prompt(questions)
-    .then(function(data) {
-        console.log("Generating Readme...");
-        writeToFile("markdown.pl", generateMarkdown(data));
-    })
-
-}
-
-// function call to initialize program
-init();
+    // WHEN I am prompted for information about my application repository
+        inquirer.prompt(questions)
+    // THEN a high-quality, professional README.md is generated with the title of my project and sections entitled Description, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
+        .then((inquirerResponses) => {
+            console.log("Generating README...");
+            writeToFile("README", generateMarkdown({...inquirerResponses}))
+        })
+        .then(() => console.log("Successfully wrote to README.md"))
+    }
+    
+    // function call to initialize program
+    init();
