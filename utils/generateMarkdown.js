@@ -1,54 +1,54 @@
-function renderLicenseBadge(license){
-    if (license !== "none") {
-    return (`
-    ## License 
-    
-    This project is licensed under the ${license} license. `
-    )
-  }
-}
-  
-  
-  // function to generate markdown for README
-  function generateMarkdown(data) {
-    return`
-  # ${data.Title}
-  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/${data.UserName}/${data.Title})
-  # Description
-  ${data.Description}
-  # Table of Contents 
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [License](#license)
-  * [Contributing](#contributing)
-  * [Tests](#tests)
-  * [Questions](#questions)
-  # Installation
-  The following necessary dependencies must be installed to run the application properly: ${data.Installation}
-  # Usage
-  ​This application is used for ${data.Usage}
-  # License
-  This project is license under the ${data.License} license.
-  # Contributing
-  ​Contributors: ${data.Contributor}
-  # Tests
-  To run tests, you need to run the following command: ${data.Test}
-  # Questions
-  If you have any questions about the repo, open an issue or contact ${data.UserName} directly ${data.Email}.
-  
-  
-  
-  
-     
-     ${renderLicenseBadge(data.lincense)}
-  `;
-  }
+// WHEN I am prompted for information about my application repository
 
+function renderLicenseBadge(license) {
+  // WHEN I choose a license for my application from a list of options
+    if(license !== "none") {
+    return (
+      `## License
+      
+      This project is licensed under the ${license} license.`
+  // THEN a badge for that license is added near the top of the README
+    )} 
+    return " ";
+  };
 
+// function to generate markdown for README
+function generateMarkdown (data) {
+// a notice is added to the section of the README entitled License that explains which license the application is covered under // (Line 23)
 
- 
-
-
+// WHEN I click on the links in the Table of Contents
+// THEN I am taken to the corresponding section of the README
+  return `# ${data.title}
+  ${renderLicenseBadge(data.license)}
+  ## Table of Contents
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [Tests](#tests)
+  - [Questions](#questions)
+  ## Description
+  
+  ${data.description}
+  ## Installation
+  ${data.installation}
    
-  module.exports = generateMarkdown;
+  ## Usage
+    
+  ${data.usage}
+  ## Contributing
   
+  ${data.contributing}
+  ## Tests
+  
+  ${data.tests}
+  ## Questions
+  You can reach out to me if you have any questions with the following links:
+  * GitHub: [${data.github}](#https://github.com/${data.github})
+  * Email: [${data.email}](#${data.email})
+  
+`;
+
+};
+
+module.exports = generateMarkdown;
